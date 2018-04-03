@@ -9,19 +9,21 @@
 #ifndef Skiplist_hpp
 #define Skiplist_hpp
 
-#include "List.hpp"
 #include "Helper.hpp"
+#include "SkipNode.hpp"
+#include "LeafNode.hpp"
 
 class SkipList{
 public:
     Info * search(long long int);
     void   add(long long int, Info*);
     void   remove(long long int);
-    void   print();
-    void   createNewList(long long int);
+    void   print(void);
+    void   createLevel(void);
     SkipList();
 private:
-    std::vector<List*> lists;
+    long long int levels;
+    Node * head;
 };
 
 #endif /* Skiplist_hpp */

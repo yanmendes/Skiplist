@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		82A473BE2072353A00567A44 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82A473BD2072353A00567A44 /* main.cpp */; };
-		82A473C92072355C00567A44 /* List.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82A473C72072355C00567A44 /* List.cpp */; };
 		82A473CC2072356500567A44 /* Skiplist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82A473CA2072356500567A44 /* Skiplist.cpp */; };
 		82C9A0DA2072A0E200C2E212 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82C9A0D92072A0E200C2E212 /* Node.cpp */; };
 /* End PBXBuildFile section */
@@ -29,8 +28,6 @@
 		82A473BA2072353A00567A44 /* Skiplist */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Skiplist; sourceTree = BUILT_PRODUCTS_DIR; };
 		82A473BD2072353A00567A44 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		82A473C52072354C00567A44 /* Node.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Node.hpp; sourceTree = "<group>"; };
-		82A473C72072355C00567A44 /* List.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = List.cpp; sourceTree = "<group>"; };
-		82A473C82072355C00567A44 /* List.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = List.hpp; sourceTree = "<group>"; };
 		82A473CA2072356500567A44 /* Skiplist.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Skiplist.cpp; sourceTree = "<group>"; };
 		82A473CB2072356500567A44 /* Skiplist.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Skiplist.hpp; sourceTree = "<group>"; };
 		82A473CE2072357B00567A44 /* LeafNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LeafNode.hpp; sourceTree = "<group>"; };
@@ -77,8 +74,6 @@
 				82C9A0D92072A0E200C2E212 /* Node.cpp */,
 				82A473CE2072357B00567A44 /* LeafNode.hpp */,
 				82A473D1207235B000567A44 /* SkipNode.hpp */,
-				82A473C72072355C00567A44 /* List.cpp */,
-				82A473C82072355C00567A44 /* List.hpp */,
 				82A473CA2072356500567A44 /* Skiplist.cpp */,
 				82A473CB2072356500567A44 /* Skiplist.hpp */,
 			);
@@ -143,7 +138,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				82A473CC2072356500567A44 /* Skiplist.cpp in Sources */,
-				82A473C92072355C00567A44 /* List.cpp in Sources */,
 				82A473BE2072353A00567A44 /* main.cpp in Sources */,
 				82C9A0DA2072A0E200C2E212 /* Node.cpp in Sources */,
 			);

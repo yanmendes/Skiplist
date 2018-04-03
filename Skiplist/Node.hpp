@@ -15,17 +15,18 @@ class Node {
 public:
     
     long long int   getKey(void) {return this->key;};
-    void            setKey(long long int key) {this->key = key;};
+    Node *          setKey(long long int key) {this->key = key; return this;};
     
     Node *          getNext(void) {return this->next;};
-    void            setNext(Node * next) {this->next = next;};
+    Node *          setNext(Node * next) {this->next = next; return this;};
     
     virtual         ~Node() {delete this->next;};
                      Node() {this->next = NULL;};
     
-    Node * search(long long int);
+    Node *          search(long long int);
+    virtual Node *  add(long long int) = 0;
+    Node *          removeNext();
 protected:
-    int type;
     long long int key;
     Node * next;
 };

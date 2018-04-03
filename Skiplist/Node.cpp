@@ -12,8 +12,18 @@
 Node * Node::search(long long int key){
     Node * node = this;
     
-    while(node->getNext() != NULL && node->getNext()->getKey() <= key)
-        node = node->getNext();
+    while(node->next != NULL && node->next->key <= key)
+        node = node->next;
     
     return node;
+}
+
+Node * Node::removeNext(){
+    Node * temp = this->next;
+    
+    this->next = next->next;
+    
+    delete temp;
+    
+    return this;
 }

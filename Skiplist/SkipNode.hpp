@@ -14,12 +14,22 @@
 class SkipNode: public Node {
 public:
     SkipNode() : Node()  {this->down = NULL;};
-    ~SkipNode() {delete this->down;};
+    ~SkipNode() {this->down = NULL; delete this->down;};
     
     Node *  getDown(void) {return this->down;};
     void    setDown(Node * down) {this->down = down;};
+    
+    Node *  add(long long int key){
+        Node * newNode = new SkipNode();
+        newNode->setKey(key);
+        newNode->setNext(this->getNext());
+        this->setNext(newNode);
+        
+        return newNode;
+    }
 private:
     Node * down;
 };
+
 
 #endif /* SkipNode_hpp */

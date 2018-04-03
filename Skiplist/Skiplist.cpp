@@ -11,65 +11,113 @@
 extern bool _DEBUG;
 
 SkipList::SkipList(){
-    lists.push_back((new List(0)));
+    this->head = new LeafNode();
+    this->head->setKey(LLONG_MIN);
+    this->levels = 0;
 }
 
 Info * SkipList::search(long long int key){
-    Node * node = lists.back()->search(key);
-    long long int levels = lists.size();
+    Node * node = this->head->search(key);
+    long long int levels = this->levels;
+    
     if(_DEBUG){
         std::cout << "(" << levels << "," << node->getKey() << ")" << "->";
     
         while(--levels){
             node = ((SkipNode *) node)->getDown()->search(key);
-            if(levels == 1)
-                std::cout << "(" << levels << "," << node->getKey() << ")" << std::endl;
-            else
-                std::cout << "(" << levels << "," << node->getKey() << ")" << "->";
+            std::cout << "(" << levels << "," << node->getKey() << ")" << "->";
         }
     } else
         while(--levels)
             node = ((SkipNode *) node)->getDown()->search(key);
     
+    node = node->search(key);
+    std::cout << "(" << levels << "," << node->getKey() << ")" << std::endl;
     return node->getKey() == key ? ((LeafNode *) node)->getInfo() : NULL;
 }
 
 void SkipList::add(long long int key, Info * info){
     long long int level = 0;
-    Node * newNode = lists.at(level++)->add(key, info);
-    Node * oldNode = newNode;
-    while (Helper::floatRandom() <= 0.5) {
-        if(level == lists.size())
-            this->createNewList(level);
-        newNode = lists.at(level++)->add(key, info);
-        ((SkipNode *) newNode)->setDown(oldNode);
-        oldNode = newNode;
+    
+    while (Helper::floatRandom() <= 0.5)
+        ++level;
+    
+    long long int insertions = level;
+    
+    while(level > this->levels)
+        this->createLevel();
+    
+    Node * insertionNode = this->head;
+    
+    while(level < this->levels){
+        insertionNode = ((SkipNode *) insertionNode)->getDown();
+        ++level;
     }
+    
+    SkipNode * oldNode = NULL;
+    
+    while(insertions){
+        insertionNode = insertionNode->search(key - 1);
+        Node * newNode = ((SkipNode *) insertionNode)->add(key);
+        if(oldNode != NULL)
+            oldNode->setDown(newNode);
+        oldNode = (SkipNode *) newNode;
+        insertionNode = ((SkipNode *) insertionNode)->getDown();
+        --insertions;
+    }
+    
+    insertionNode = insertionNode->search(key - 1);
+    ((LeafNode *) insertionNode)->add(key, info);
+    if(oldNode != NULL)
+        oldNode->setDown(insertionNode);
 }
 
 void SkipList::remove(long long int key){
-    Node * node = lists.back()->search(key);
-    long long int level = lists.size() - 1;
+    long long int levels = this->levels;
+    Node * node = this->head;
     
-    while(node->getKey() != key && level > 0) {
-        node = ((SkipNode *) node)->getDown()->search(key);
-        --level;
+    while(levels){
+        node = node->search(key - 1);
+        
+        if(node->getNext() != NULL && node->getNext()->getKey() == key)
+            node->removeNext();
+        
+        node = ((SkipNode *) node)->getDown();
+        
+        --levels;
     }
-    
-    for(; level >= 0; --level)
-        lists.at(level)->remove(key);
 }
 
 void SkipList::print(){
-    for (std::vector<List*>::reverse_iterator i = lists.rbegin(); i != lists.rend(); ++i){
-        (*i)->print();
+    Node * provisoryHead = this->head;
+    Node * iterator;
+    
+    for(long long int i = levels; i > 0; --i){
+        iterator = provisoryHead->getNext();
+        
+        while(iterator != NULL){
+            std::cout << iterator->getKey() << '\t';
+            iterator = iterator->getNext();
+        }
+        
+        std::cout << std::endl;
+        provisoryHead = ((SkipNode *) provisoryHead)->getDown();
     }
+    
+    iterator = provisoryHead->getNext();
+    
+    while(iterator != NULL){
+        std::cout << iterator->getKey() << '\t';
+        iterator = iterator->getNext();
+    }
+    
+    std::cout << std::endl;
 }
 
-void SkipList::createNewList(long long int level) {
-    List * oldTop = lists.back();
-    this->lists.push_back((new List(level)));
-    List * newTop = lists.back();
-    
-    newTop->link(oldTop);
+void SkipList::createLevel() {
+    SkipNode * newTop = new SkipNode();
+    newTop->setKey(LLONG_MIN);
+    newTop->setDown(this->head);
+    this->head = newTop;
+    ++this->levels;
 }
