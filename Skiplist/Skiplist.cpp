@@ -86,6 +86,11 @@ void SkipList::remove(long long int key){
         
         --levels;
     }
+    
+    node = node->search(key - 1);
+    
+    if(node->getNext() != NULL && node->getNext()->getKey() == key)
+        node->removeNext();
 }
 
 void SkipList::print(){

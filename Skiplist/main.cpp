@@ -17,18 +17,8 @@ std::uniform_int_distribution<> int_dis(INT_MIN, INT_MAX);
 int main(int argc, const char * argv[]) {
     SkipList * s = new SkipList();
     
-//    for(long long int i = 0; i < 5; ++i)
-//        s->add(Helper::intRandom(), NULL);
-    
-    s->add(5, NULL);
-    s->add(10, NULL);
-    s->add(1, NULL);
-    s->add(91, NULL);
-    s->add(7, NULL);
-    
-    s->print();
-    
-    s->search(91);
+    for(long long int i = 0; i < 5; ++i)
+        s->add(Helper::intRandom(), NULL);
     
     return 0;
 }
